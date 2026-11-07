@@ -34,3 +34,20 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+Redux Toolkit
+1. Centralized store with reducers
+2. dispatch(action())
+3. Provider required
+ 4. Explicit action history
+ 5. Strong conventions
+ 6. More boilerplate
+
+ Zustand
+ 1. Store with actions and state
+ 2. Direct action calls
+ 3. No Provider required
+ 4. Minimal abstraction
+ 5. Flexible organization
+ 6. Less boilerplate
