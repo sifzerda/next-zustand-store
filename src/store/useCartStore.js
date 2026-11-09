@@ -10,7 +10,8 @@ export const useCartStore = create(
 
       addItem: (product) =>
         set((state) => {
-          const existing = state.items.find((item) => item.id === product.id);
+          const existing = state.items.find((item) => 
+            item.id === product.id);
 
           if (existing) {
             return {
@@ -37,9 +38,7 @@ export const useCartStore = create(
 
       removeItem: (id) =>
         set((state) => ({
-          items: state.items.filter(
-            (item) => item.id !== id
-          ),
+          items: state.items.filter((item) => item.id !== id),
         })),
 
       setQuantity: (id, quantity) =>

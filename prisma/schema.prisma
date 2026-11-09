@@ -21,19 +21,21 @@ model Product {
   active      Boolean  @default(true)
   createdAt   DateTime @default(now())
 
-  orderItems  OrderItem[]
+  orderItems OrderItem[]
 }
 
 model Order {
-  id              String      @id @default(cuid())
-  status          OrderStatus @default(PENDING)
-  total           Int
-  currency        String      @default("aud")
-  stripeSessionId String?     @unique
-  createdAt       DateTime    @default(now())
-  paidAt          DateTime?
+  id             String      @id @default(cuid())
+  idempotencyKey String      @unique
+  checkoutHash   String
+  status         OrderStatus @default(PENDING)
+  total          Int
+  currency       String      @default("aud")
+  createdAt      DateTime    @default(now())
+  paidAt         DateTime?
 
-  items           OrderItem[]
+  items    OrderItem[]
+  payments Payment[]
 }
 
 model OrderItem {
@@ -45,6 +47,45 @@ model OrderItem {
 
   order   Order   @relation(fields: [orderId], references: [id])
   product Product @relation(fields: [productId], references: [id])
+}
+
+model Payment {
+  id       String          @id @default(cuid())
+  orderId  String
+  provider PaymentProvider
+  status   PaymentStatus   @default(PENDING)
+  amount   Int
+  currency String          @default("aud")
+
+  providerPaymentId String?
+  providerOrderId   String?
+  providerLinkId    String?
+  checkoutUrl       String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  order Order @relation(fields: [orderId], references: [id])
+
+  @@unique([provider, providerPaymentId])
+  @@unique([provider, providerLinkId])
+  @@index([orderId])
+  @@index([provider, providerOrderId])
+}
+
+enum PaymentProvider {
+  STRIPE
+  PAYPAL
+  SQUARE
+  BANK_TRANSFER
+}
+
+enum PaymentStatus {
+  PENDING
+  PROCESSING
+  SUCCEEDED
+  FAILED
+  CANCELLED
 }
 
 enum OrderStatus {

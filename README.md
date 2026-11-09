@@ -36,6 +36,7 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
 
+
 Redux Toolkit
 1. Centralized store with reducers
 2. dispatch(action())
@@ -51,3 +52,18 @@ Redux Toolkit
  4. Minimal abstraction
  5. Flexible organization
  6. Less boilerplate
+
+
+
+Stripe test card
+
+Card number
+4242 4242 4242 4242
+ Copy
+Expiry
+
+Any future date
+
+CVC
+
+Any 3 digits
